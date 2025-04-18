@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8c4ec, #d5c2f2);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      max-width: 90%;
+      animation: fadeIn 1s ease;
+    }
+    .screen.active {
+      display: flex;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+    button {
+      background-color: #fff;
+      color: #d94fa3;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ffe6f0;
+    }
+    #final-heart {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .small-heart {
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%);
+      margin: 1px;
+    }
+    .love-text {
+      position: absolute;
+      color: #d94fa3;
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px white;
+    }
+    .note {
+      margin-top: 20px;
+      color: #fff;
+      font-style: italic;
+      font-size: 1.5rem;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    iframe.music {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background music using YouTube -->
+  <iframe class="music" width="0" height="0" src="https://www.youtube.com/embed/vGJTaP6anOU?autoplay=1&loop=1&playlist=vGJTaP6anOU" allow="autoplay"></iframe>
+
+  <div id="q1" class="screen active">
+    <h1>Did you know someone thinks about you every single day?</h1>
+    <button onclick="next('q1', 'q2')">Yes</button>
+    <button onclick="next('q1', 'q2')">No</button>
+  </div>
+  <div id="q2" class="screen">
+    <h1>Did you know you’re beautiful?</h1>
+    <button onclick="next('q2', 'q3')">Yes</button>
+    <button onclick="next('q2', 'q3')">No</button>
+  </div>
+  <div id="q3" class="screen">
+    <h1>Do you know how much your presence brightens my day?</h1>
+    <button onclick="next('q3', 'q4')">Yes</button>
+    <button onclick="next('q3', 'q4')">No</button>
+  </div>
+  <div id="q4" class="screen">
+    <h1>Do you know I love you?</h1>
+    <button id="yesBtn" onclick="changeButtonText('yesBtn')">Yes</button>
+    <button onclick="next('q4', 'final')">No</button>
+  </div>
+  <div id="final" class="screen">
+    <div id="final-heart">
+      <div class="love-text">
+        <strong style="font-size: 3rem;">I love you</strong>
+        <span style="font-size: 3rem;">❤️</span>
+      </div>
+      <!-- 300 small hearts -->
+      <script>
+        for(let i = 0; i < 300; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'small-heart';
+          document.getElementById('final-heart').appendChild(heart);
+        }
+      </script>
+    </div>
+    <div class="note">And that’s enough for me</div>
+  </div>
+
+  <script>
+    function next(current, next) {
+      document.getElementById(current).classList.remove('active');
+      document.getElementById(next).classList.add('active');
+    }
+    function changeButtonText(buttonId) {
+      var button = document.getElementById(buttonId);
+      if (button.innerHTML === 'Yes') {
+        button.innerHTML = 'Are you sure you know?';
+      } else if (button.innerHTML === 'Are you sure you know?') {
+        button.innerHTML = 'Pakka';
+      } else if (button.innerHTML === 'Pakka') {
+        button.innerHTML = 'Aai Shapat Kharach';
+        setTimeout(function() {
+          next('q4', 'final');
+        }, 500);
+      }
+    }
+  </script>
+</body>
+</html>
